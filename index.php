@@ -2,16 +2,17 @@
 
 require 'vendor/autoload.php';
 
-$app = new \Slim\App;
+$app = new \Slim\App([
+    'settings' => [
+        'displayErrorDetails' => true,
+    ]
+]);
 
 $container = $app->getContainer();
 
-$container['greeting'] = function() {
-    return 'Hello from the container';
-};
 
 $app->get('/', function() {
-    echo $this->greeting;
+    echo $this->nothing;
 });
 
 
