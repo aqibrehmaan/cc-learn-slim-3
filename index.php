@@ -4,12 +4,15 @@ require 'vendor/autoload.php';
 
 $app = new \Slim\App;
 
+$container = $app->getContainer();
+
+$container['greeting'] = function() {
+    return 'Hello from the container';
+};
+
 $app->get('/', function() {
-    echo 'Home';
+    echo $this->greeting;
 });
 
-$app->get('/users', function() {
-    echo 'Users';
-});
 
 $app->run();
