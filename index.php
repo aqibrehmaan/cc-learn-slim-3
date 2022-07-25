@@ -25,26 +25,11 @@ $container['view'] = function ($container) {
 
 $app->get('/', function($request, $response) {
     return $this->view->render($response, 'home.twig');
-});
+})->setName('home');
 
 $app->get('/users', function($request, $response) {
-
-    // $user = [
-    //     'username' => 'billy',
-    //     'name' => 'Billy Garrett',
-    //     'email' => 'billy@codecourse.com'
-    // ];
-
-    $users = [
-        ['username' => 'alex'],
-        ['username' => 'billy'],
-        ['username' => 'dale']
-    ];
-
-    return $this->view->render($response, 'users.twig', [
-        'users' => $users
-    ]);
-});
+    return $this->view->render($response, 'users.twig');
+})->setName('users.index');
 
 
 $app->run();
