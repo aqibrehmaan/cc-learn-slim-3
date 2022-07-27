@@ -10,6 +10,10 @@ $app = new \Slim\App([
 
 $container = $app->getContainer();
 
+$container['db'] = function() {
+    return new PDO('mysql:host=localhost;dbname=learn-slim-3', 'root', '');
+};
+
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(__DIR__ .'/resources/views', [
         'cache' => false
@@ -23,22 +27,11 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$app->group('/topics', function() {
-    $this->get('', function() {
-        echo 'Topic list';
-    });
 
-    $this->get('/{id}', function() {
-        echo 'Topic' . $args['id'];
-    });
+$app->get('/', function($request, $response) {
+    $users = $this->db->query('SELECT * FROM Users')->fetchAll(PDO::FETCH_OBJ);
 
-    $this->post('', function() {
-        echo 'Post topic';
-    });
-});
-
-$app->get('/contact', function($request, $response) {
-    return $this->view->render($response, 'contact.twig');
+    var_dump($users);
 });
 
 $app->run();
