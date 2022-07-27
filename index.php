@@ -37,7 +37,12 @@ $app->get('/contact', function($request, $response){
 });
 
 $app->post('/contact', function($request, $response){
-    die('contact');
+    //echo $request->getParam('email');
+
+    $params = $request->getParams();
+
+    var_dump($params['email']);
+    
 })->setName('contact');
 
 
