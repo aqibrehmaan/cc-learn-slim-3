@@ -23,27 +23,37 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$app->get('/', function($request, $response) {
-    return $this->view->render($response, 'home.twig');
-})->setName('home');
-
-$app->get('/users', function($request, $response) {
-    return $this->view->render($response, 'users.twig');
-})->setName('users.index');
-
-
-$app->get('/contact', function($request, $response){
+$app->get('/contact', function($request, $response) {
     return $this->view->render($response, 'contact.twig');
 });
 
-$app->post('/contact', function($request, $response){
-    //echo $request->getParam('email');
+$app->get('/contact/confirm', function($request, $response) {
+    return $this->view->render($response, 'contact_confirm.twig');
+});
 
-    $params = $request->getParams();
-
-    var_dump($params['email']);
-    
+$app->post('/contact', function($request, $response) {
+    return $response->withRedirect('http://localhost/codecourse/slim/learn-slim-3/contact/confirm');
 })->setName('contact');
+
+$app->get('/users/{id}', function($request, $response, $args) {
+   // var_dump($args);
+
+   $user = [
+     'id' => $args['id'],
+     'username' => 'alex'
+   ];
+
+//    return $this->view->render($response, 'user.twig', [
+//      'user' => $user
+//    ]);
+
+    return $this->view->render($response, 'user.twig', compact('user'));
+
+});
+
+// $app->get('/users[/{id}]', function($request, $response, $args) {
+//     var_dump($args);
+// });
 
 
 $app->run();
