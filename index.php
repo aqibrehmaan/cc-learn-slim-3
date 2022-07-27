@@ -28,10 +28,18 @@ $container['view'] = function ($container) {
 };
 
 
-$app->get('/', function($request, $response) {
-    $users = $this->db->query('SELECT * FROM Users')->fetchAll(PDO::FETCH_OBJ);
+$app->get('/users/{username}', function($request, $response, $args) {
+    $user = $this->db->prepare('SELECT * FROM Users where username = :username');
+    $user->execute([
+        'username' => $args['username']
+    ]);
 
-    var_dump($users);
+    $user = $user->fetch(PDO::FETCH_OBJ);
+    
+    return $this->view->render($response, 'users/profile.twig', [
+        'user' => $user
+    ]);
+
 });
 
 $app->run();
