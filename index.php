@@ -23,37 +23,22 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$app->group('/topics', function() {
+    $this->get('', function() {
+        echo 'Topic list';
+    });
+
+    $this->get('/{id}', function() {
+        echo 'Topic' . $args['id'];
+    });
+
+    $this->post('', function() {
+        echo 'Post topic';
+    });
+});
+
 $app->get('/contact', function($request, $response) {
     return $this->view->render($response, 'contact.twig');
 });
-
-$app->get('/contact/confirm', function($request, $response) {
-    return $this->view->render($response, 'contact_confirm.twig');
-});
-
-$app->post('/contact', function($request, $response) {
-    return $response->withRedirect('http://localhost/codecourse/slim/learn-slim-3/contact/confirm');
-})->setName('contact');
-
-$app->get('/users/{id}', function($request, $response, $args) {
-   // var_dump($args);
-
-   $user = [
-     'id' => $args['id'],
-     'username' => 'alex'
-   ];
-
-//    return $this->view->render($response, 'user.twig', [
-//      'user' => $user
-//    ]);
-
-    return $this->view->render($response, 'user.twig', compact('user'));
-
-});
-
-// $app->get('/users[/{id}]', function($request, $response, $args) {
-//     var_dump($args);
-// });
-
 
 $app->run();
