@@ -1,7 +1,5 @@
 <?php
 
-require 'vendor/autoload.php';
-
 $app = new \Slim\App([
     'settings' => [
         'displayErrorDetails' => true,
@@ -15,7 +13,7 @@ $container['db'] = function() {
 };
 
 $container['view'] = function ($container) {
-    $view = new \Slim\Views\Twig(__DIR__ .'/resources/views', [
+    $view = new \Slim\Views\Twig(__DIR__ .'/../resources/views', [
         'cache' => false
     ]);
 
@@ -27,19 +25,4 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-
-$app->get('/users/{username}', function($request, $response, $args) {
-    $user = $this->db->prepare('SELECT * FROM Users where username = :username');
-    $user->execute([
-        'username' => $args['username']
-    ]);
-
-    $user = $user->fetch(PDO::FETCH_OBJ);
-    
-    return $this->view->render($response, 'users/profile.twig', [
-        'user' => $user
-    ]);
-
-});
-
-$app->run();
+require __DIR__ .'/../routes/web.php';
