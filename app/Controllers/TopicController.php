@@ -2,11 +2,12 @@
 
 namespace App\Controllers;
 
-class TopicController
+class TopicController extends Controller
 {
-    public function index()
+
+    public function index($request, $response)
     {
-        return 'All topics';
+        return $this->c->view->render($response, 'topics/index.twig');
     }
 
     public function show()
