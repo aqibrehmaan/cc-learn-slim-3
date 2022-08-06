@@ -27,6 +27,11 @@ class TopicController extends Controller
 
         $topic = $topic->fetch(PDO::FETCH_OBJ);
 
+        if($topic === false) 
+        {
+            return $this->render404($response);
+        }
+
         return $this->c->view->render($response, 'topics/show.twig', compact('topic'));
     }
 }
