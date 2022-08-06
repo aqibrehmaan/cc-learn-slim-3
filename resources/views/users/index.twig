@@ -1,0 +1,12 @@
+{% extends "layouts/app.twig" %}
+
+
+{% block content %}
+
+    {% for user in users %}
+        <div class="user">
+            <h3><a href="#">{{ user.fullName() }} ({{ user.getFormattedBalance() }})</a></h3>
+        </div>  
+    {% endfor %}
+   
+{% endblock %}
