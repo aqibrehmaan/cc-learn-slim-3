@@ -4,7 +4,7 @@
     
     {% for topic in topics %}
         <div class="topic">
-            <h3><a href="{{ path_for('topics.show', {id: topic.id }) }}">{{ topic.title }}</a></h3>
+            <h3><a href="{{ path_for('topics.show', {id: topic.id }) }}">{{ topic.getTitle() }}</a></h3>
         </div>  
         
     {% endfor %}
