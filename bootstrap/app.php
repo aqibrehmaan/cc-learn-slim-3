@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+
+$_SESSION['user_id'] = 1;
+
 require __DIR__ .'/../vendor/autoload.php';
 
 $app = new \Slim\App([
@@ -25,20 +29,6 @@ $container['view'] = function ($container) {
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
 
     return $view;
-};
-
-// $middleware = function($request, $response, $next) {
-//     $response->getBody()->write('Before');
-
-//     return $next($request, $response);
-// };
-
-$middleware = function($request, $response, $next) {
-    $response->getBody()->write('Before');
-    $response = $next($request, $response);
-    $response->getBody()->write('After');
-
-    return $response;
 };
 
 require __DIR__ .'/../routes/web.php';
