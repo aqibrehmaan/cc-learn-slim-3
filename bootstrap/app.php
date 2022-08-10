@@ -2,7 +2,7 @@
 
 session_start();
 
-$_SESSION['user_id'] = 1;
+unset($_SESSION['user_id']);
 
 require __DIR__ .'/../vendor/autoload.php';
 
