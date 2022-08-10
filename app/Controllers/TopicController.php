@@ -19,4 +19,8 @@ class TopicController extends Controller
        die();
        return $args['id'];
     }
+
+    public function create($request, $response, $args) {
+        return 'Create';
+    }
 }
