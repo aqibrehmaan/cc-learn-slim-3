@@ -10,25 +10,7 @@ class TopicController extends Controller
 
     public function index($request, $response)
     {
-
-        $topics = $this->c->db->query('SELECT * FROM topics')->fetchAll(PDO::FETCH_CLASS, Topic::class);
-
-        // return $response->withHeader('Content-Type', 'application/json')->write(json_encode($topics));
-
-        if(true) 
-        {
-
-            // return $response->withHeader('Content-Type', 'application/json')->withStatus(404)->write(json_encode([
-            //     'error' => 'That topic does not exist'
-            // ]));   
-            
-            return $response->withJson([
-                'error' => 'That topic does not exist'
-            ], 404);
-            
-        }
-
-        return $response->withJson($topics, 200);
+        return 'Topic index';
     }
 
     public function show($request, $response, $args)
