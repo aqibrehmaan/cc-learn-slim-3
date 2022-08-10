@@ -31,4 +31,16 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+// $container['notFoundHandler'] = function($c) {
+//     return function($request, $response) {
+//         return $response->withStatus(404)->write('Not found');
+//     };
+// };
+
+$container['notFoundHandler'] = function($c) {
+    return function($request, $response) use ($c){
+        return $c->view->render($response, 'errors/404.twig')->withStatus(404);
+    };
+};
+
 require __DIR__ .'/../routes/web.php';
